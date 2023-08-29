@@ -2,7 +2,6 @@ import os
 import re
 import xml.etree.ElementTree as ET
 
-import torch
 from tqdm import tqdm
 
 sentiment_dict = {"negative": "-1", "neutral": "0", "positive": "1"}
