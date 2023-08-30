@@ -122,13 +122,13 @@ dataset_files = {
 
 if opt.model_name == 'bert':
     tokenizer = BertTokenizer.from_pretrained("./plm/bert-base-uncased")
-    ft_model = '/media/b115/NLP/bert/acc_0.7884_f1_0.7501_230828-0342.model'
+    ft_model = './checkpoint/bert_acc_0.7884_f1_0.7501_230828-0342'
     model = BertForSequenceClassification.from_pretrained(
         ft_model, num_labels=3).to(opt.device)
     inputs_cols = ["input_ids", "token_type_ids", "attention_mask"]
 elif opt.model_name == 'roberta':
     tokenizer = RobertaTokenizer.from_pretrained("./plm/roberta-base")
-    ft_model = '/media/b115/NLP/roberta/acc_0.8197_f1_0.7839_230828-0411.model'
+    ft_model = './checkpoint/roberta_acc_0.8197_f1_0.7839_230828-0411'
     model = RobertaForSequenceClassification.from_pretrained(
         ft_model, num_labels=3).to(opt.device)
     inputs_cols = ["input_ids", "attention_mask"]

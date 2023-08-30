@@ -194,7 +194,7 @@ def train(model, inputs_cols, criterion, optimizer, train_data_loader, val_data_
                         "{}/{}/{}".format(opt.save_model_dir, opt.model_name, opt.dataset)):
                     os.makedirs("{}/{}/{}".format(opt.save_model_dir,
                                 opt.model_name, opt.dataset))
-                path = "{0}/{1}/{2}/acc_{3}_f1_{4}_{5}.model".format(opt.save_model_dir, opt.model_name,
+                path = "full/{0}/{1}/acc_{2}_f1_{3}_{4}".format(opt.model_name,
                                                                      opt.dataset,
                                                                      round(max_val_acc, 4), round(
                                                                          max_val_f1, 4),
