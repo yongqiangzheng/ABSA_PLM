@@ -1,6 +1,5 @@
 import logging
 import argparse
-import math
 import os
 import sys
 import random
@@ -77,7 +76,7 @@ class ABSADataset(Dataset):
 parser = argparse.ArgumentParser()
 parser.add_argument("--model_name", default="bert", type=str)
 parser.add_argument("--dataset", default="lap14", type=str,
-                    help="twitter, restaurant, laptop")
+                    help="lap14, rest14")
 parser.add_argument("--optimizer", default="adam", type=str)
 parser.add_argument("--repeat", default=3, type=int)
 parser.add_argument("--lr", default=2e-5, type=float,
@@ -200,7 +199,7 @@ def train(model, inputs_cols, criterion, optimizer, train_data_loader, val_data_
                                                                      round(max_val_acc, 4), round(
                                                                          max_val_f1, 4),
                                                                      strftime("%y%m%d-%H%M", localtime()))
-                torch.save(model.state_dict(), path)
+                model.save_pretrained(path)
                 logger.info(">> saved: {}".format(path))
             elif 'lora' in opt.model_name:
                 path = "peft/{0}/{1}//acc_{2}_f1_{3}_{4}".format(opt.model_name, opt.dataset, round(
@@ -306,8 +305,12 @@ for i in range(opt.repeat):
 
     best_model_path = train(model, inputs_cols, criterion,
                             optimizer, train_data_loader, val_data_loader)
-    if '_' not in opt.model_name:
-        model.load_state_dict(torch.load(best_model_path))
+    if opt.model_name == 'bert':
+        model = BertForSequenceClassification.from_pretrained(
+            best_model_path, num_labels=3).to(opt.device)
+    elif opt.model_name == 'bert':
+        model = RobertaForSequenceClassification.from_pretrained(
+            best_model_path, num_labels=3).to(opt.device) 
     elif 'lora' in opt.model_name:
         peft_model = best_model_path
         model = PeftModel.from_pretrained(

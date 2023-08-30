@@ -1,35 +1,27 @@
 # NLP
 
 ## Run
-
 1. download pre-trained models and process dataset
-
 ```
 python preprocess.py
 ```
-
 2. fine-tune models
 
 You can fine-tune single model with:
-
 ```
 python finetune.py --model_name xxx --dataset xxx --lr xxx
 ```
-
 or fine-tune all models:
-
 ```
 bash run.sh
 ```
+3. evaluate results and web demo
 
-3. evaluate results and web demo(not finished!)
-
+**copy your finetune model to checkpoint folder fist**
 ```
 #python demo.py
 ```
-
 ## Results
-
 top: 3-runs average
 
 bottom: 3-runs best
